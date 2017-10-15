@@ -9,7 +9,7 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
     fileprivate var scaleFactor: CGFloat?
     fileprivate var label : SKLabelNode?
@@ -26,12 +26,35 @@ class GameScene: SKScene {
     override init(size: CGSize) {
         super.init(size: size)
         
+        scaleFactor = self.size.height / 320
+        
         backgroundColor = SKColor.blue
         
         midground = createMidground()
         
         if let _midground = midground {
             addChild(_midground)
+        }
+        
+        foreground = SKNode()
+        
+        if let _foreground = foreground {
+            addChild(_foreground)
+        }
+        
+        player = createPlayer()
+        
+        if let _player = player {
+            foreground?.addChild(_player)
+        }
+        
+        physicsWorld.gravity = CGVector(dx: 0, dy: -1)
+        physicsWorld.contactDelegate = self
+    }
+    
+    override func didSimulatePhysics() {
+        guard let _player = player else {
+            return
         }
     }
     
@@ -40,6 +63,8 @@ class GameScene: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        player?.physicsBody?.isDynamic = true
+        player?.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 40))
         
     }
     

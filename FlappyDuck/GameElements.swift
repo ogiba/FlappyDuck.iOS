@@ -46,6 +46,7 @@ extension GameScene {
         playerNode.position = CGPoint(x: 80, y: self.size.height / 2.0)
         
         let sprite = SKSpriteNode(imageNamed: "player")
+        sprite.size = CGSize(width: sprite.size.width / 4, height: sprite.size.height / 4)
         playerNode.addChild(sprite)
         
         playerNode.physicsBody = SKPhysicsBody(circleOfRadius: sprite.size.width / 2.0)
