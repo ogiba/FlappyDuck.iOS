@@ -48,7 +48,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             foreground?.addChild(_player)
         }
         
-        physicsWorld.gravity = CGVector(dx: 0, dy: -1)
+        physicsWorld.gravity = CGVector(dx: 0, dy: -2)
         physicsWorld.contactDelegate = self
     }
     
@@ -63,8 +63,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if gameOver {
+            return
+        }
+        
         player?.physicsBody?.isDynamic = true
-        player?.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 40))
+        player?.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 10))
         
     }
     
@@ -82,6 +86,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
+        if gameOver {
+            return
+        }
+        
+        if let _player = player {
+            if _player.position.y > self.size.height {
+                endGame()
+            } else if _player.position.y < 0 {
+                endGame()
+            }
+        }
+    }
+    
+    func endGame() {
+        gameOver = true
+        player?.physicsBody?.isDynamic = false
     }
 }
