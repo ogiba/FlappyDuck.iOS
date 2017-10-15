@@ -17,6 +17,7 @@
 		7A88882E1F93F1E8005D0D32 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A88882C1F93F1E8005D0D32 /* LaunchScreen.storyboard */; };
 		7A8888391F93F1E8005D0D32 /* FlappyDuckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8888381F93F1E8005D0D32 /* FlappyDuckTests.swift */; };
 		7A8888441F93F1E8005D0D32 /* FlappyDuckUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8888431F93F1E8005D0D32 /* FlappyDuckUITests.swift */; };
+		7AC462641F93F70500EFAA14 /* GameElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC462631F93F70500EFAA14 /* GameElements.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		7A88883F1F93F1E8005D0D32 /* FlappyDuckUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlappyDuckUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A8888431F93F1E8005D0D32 /* FlappyDuckUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyDuckUITests.swift; sourceTree = "<group>"; };
 		7A8888451F93F1E8005D0D32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7AC462631F93F70500EFAA14 /* GameElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameElements.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				7A88881F1F93F1E7005D0D32 /* GameScene.sks */,
 				7A8888211F93F1E7005D0D32 /* Actions.sks */,
 				7A8888231F93F1E7005D0D32 /* GameScene.swift */,
+				7AC462631F93F70500EFAA14 /* GameElements.swift */,
 				7A8888251F93F1E7005D0D32 /* GameViewController.swift */,
 				7A8888271F93F1E8005D0D32 /* Main.storyboard */,
 				7A88882A1F93F1E8005D0D32 /* Assets.xcassets */,
@@ -270,6 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AC462641F93F70500EFAA14 /* GameElements.swift in Sources */,
 				7A8888241F93F1E7005D0D32 /* GameScene.swift in Sources */,
 				7A8888261F93F1E7005D0D32 /* GameViewController.swift in Sources */,
 				7A88881E1F93F1E7005D0D32 /* AppDelegate.swift in Sources */,
