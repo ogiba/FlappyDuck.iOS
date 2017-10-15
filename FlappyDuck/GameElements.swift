@@ -40,4 +40,30 @@ extension GameScene {
         
         return midgroundNode
     }
+    
+    func createPlayer() -> SKNode {
+        let playerNode = SKNode()
+        playerNode.position = CGPoint(x: 80, y: self.size.height / 2.0)
+        
+        let sprite = SKSpriteNode(imageNamed: "player")
+        playerNode.addChild(sprite)
+        
+        playerNode.physicsBody = SKPhysicsBody(circleOfRadius: sprite.size.width / 2.0)
+        playerNode.physicsBody?.isDynamic = false
+        playerNode.physicsBody?.allowsRotation = false
+        
+        playerNode.physicsBody?.restitution = 1
+        playerNode.physicsBody?.friction = 0
+        playerNode.physicsBody?.angularDamping = 0
+        playerNode.physicsBody?.linearDamping = 0
+        
+        playerNode.physicsBody?.usesPreciseCollisionDetection = true
+        
+        playerNode.physicsBody?.categoryBitMask = CollisionBitMask.player
+        
+        playerNode.physicsBody?.collisionBitMask = 0
+        playerNode.physicsBody?.contactTestBitMask = CollisionBitMask.pipe
+        
+        return playerNode
+    }
 }

@@ -18,6 +18,8 @@
 		7A8888391F93F1E8005D0D32 /* FlappyDuckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8888381F93F1E8005D0D32 /* FlappyDuckTests.swift */; };
 		7A8888441F93F1E8005D0D32 /* FlappyDuckUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8888431F93F1E8005D0D32 /* FlappyDuckUITests.swift */; };
 		7AC462641F93F70500EFAA14 /* GameElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC462631F93F70500EFAA14 /* GameElements.swift */; };
+		7AC462671F93FC7E00EFAA14 /* CollisionBitMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC462661F93FC7E00EFAA14 /* CollisionBitMask.swift */; };
+		7AC462691F93FD0700EFAA14 /* GenericNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC462681F93FD0700EFAA14 /* GenericNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,8 @@
 		7A8888431F93F1E8005D0D32 /* FlappyDuckUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyDuckUITests.swift; sourceTree = "<group>"; };
 		7A8888451F93F1E8005D0D32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7AC462631F93F70500EFAA14 /* GameElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameElements.swift; sourceTree = "<group>"; };
+		7AC462661F93FC7E00EFAA14 /* CollisionBitMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionBitMask.swift; sourceTree = "<group>"; };
+		7AC462681F93FD0700EFAA14 /* GenericNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,7 @@
 		7A88881C1F93F1E7005D0D32 /* FlappyDuck */ = {
 			isa = PBXGroup;
 			children = (
+				7AC462651F93FC5300EFAA14 /* Utils */,
 				7A88881D1F93F1E7005D0D32 /* AppDelegate.swift */,
 				7A88881F1F93F1E7005D0D32 /* GameScene.sks */,
 				7A8888211F93F1E7005D0D32 /* Actions.sks */,
@@ -135,6 +140,15 @@
 				7A8888451F93F1E8005D0D32 /* Info.plist */,
 			);
 			path = FlappyDuckUITests;
+			sourceTree = "<group>";
+		};
+		7AC462651F93FC5300EFAA14 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				7AC462661F93FC7E00EFAA14 /* CollisionBitMask.swift */,
+				7AC462681F93FD0700EFAA14 /* GenericNode.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,9 +288,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AC462641F93F70500EFAA14 /* GameElements.swift in Sources */,
+				7AC462691F93FD0700EFAA14 /* GenericNode.swift in Sources */,
 				7A8888241F93F1E7005D0D32 /* GameScene.swift in Sources */,
 				7A8888261F93F1E7005D0D32 /* GameViewController.swift in Sources */,
 				7A88881E1F93F1E7005D0D32 /* AppDelegate.swift in Sources */,
+				7AC462671F93FC7E00EFAA14 /* CollisionBitMask.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
