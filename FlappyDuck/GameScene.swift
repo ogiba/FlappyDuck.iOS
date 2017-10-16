@@ -104,7 +104,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
+        moveBackground()
         movePipes()
+    }
+    
+    func moveBackground() {
+        let backgroundVelocity : CGFloat = 10.0
+        midground?.enumerateChildNodes(withName: "cloud", using: { (node, stop) -> Void in
+            if let cloudNode = node as? SKSpriteNode {
+                cloudNode.position = CGPoint(x: cloudNode.position.x  - backgroundVelocity, y: cloudNode.position.y)
+                
+                // Checks if bg node is completely scrolled off the screen, if yes, then puts it at the end of the other node.
+                if cloudNode.position.y <= -cloudNode.size.height {
+                    cloudNode.position = CGPoint(x: cloudNode.position.x + cloudNode.size.width * 2,y: cloudNode.position.y)
+                }
+            }
+        })
     }
     
     func movePipes() {

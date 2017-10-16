@@ -28,14 +28,15 @@ extension GameScene {
                 yPos = self.size.height
             }
             
-            let cloduNode = SKSpriteNode(imageNamed: name)
+            let cloudNode = SKSpriteNode(imageNamed: name)
+            cloudNode.name = "cloud"
             
             if let _anchor = anchor, let _yPos = yPos {
-                cloduNode.anchorPoint = _anchor
-                cloduNode.position = CGPoint(x: 500 * CGFloat(index), y: _yPos)
+                cloudNode.anchorPoint = _anchor
+                cloudNode.position = CGPoint(x: 500 * CGFloat(index), y: _yPos)
             }
             
-            midgroundNode.addChild(cloduNode)
+            midgroundNode.addChild(cloudNode)
         }
         
         return midgroundNode
