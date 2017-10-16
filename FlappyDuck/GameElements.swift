@@ -67,4 +67,22 @@ extension GameScene {
         
         return playerNode
     }
+    
+    func createPipe(atPosition position: CGPoint) -> PipeNode {
+        let pipeNode = PipeNode()
+        
+        let position = CGPoint(x: position.x, y: position.y * (scaleFactor ?? 1.0))
+        pipeNode.position = position
+        pipeNode.name = "pipeNode"
+        
+        let sprite = SKSpriteNode(imageNamed: "pipe")
+        pipeNode.addChild(sprite)
+        
+        pipeNode.physicsBody = SKPhysicsBody(rectangleOf: sprite.size)
+        pipeNode.physicsBody?.isDynamic = false
+        pipeNode.physicsBody?.categoryBitMask = CollisionBitMask.pipe
+        pipeNode.physicsBody?.collisionBitMask = 0
+        
+        return pipeNode
+    }
 }

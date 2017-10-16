@@ -11,7 +11,7 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    fileprivate var scaleFactor: CGFloat?
+    public var scaleFactor: CGFloat?
     fileprivate var label : SKLabelNode?
     fileprivate var backgroud: SKNode?
     fileprivate var midground: SKNode?
@@ -48,6 +48,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             foreground?.addChild(_player)
         }
         
+        let pipeNode = createPipe(atPosition: CGPoint(x: self.size.width / 2, y: self.size.height - 125))
+        let pipeNode2 = createPipe(atPosition: CGPoint(x: self.size.width / 2, y: 40))
+        
+        foreground?.addChild(pipeNode)
+        foreground?.addChild(pipeNode2)
+        
         physicsWorld.gravity = CGVector(dx: 0, dy: -2)
         physicsWorld.contactDelegate = self
     }
@@ -68,7 +74,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         player?.physicsBody?.isDynamic = true
-        player?.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 10))
+        player?.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 5))
         
     }
     
@@ -97,6 +103,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 endGame()
             }
         }
+        
+        movePipes()
+    }
+    
+    func movePipes() {
+        let backgroundVelocity : CGFloat = 10.0
+        foreground?.enumerateChildNodes(withName: "pipeNode", using: { (node, stop) -> Void in
+            if let pipeNode = node as? PipeNode {
+                pipeNode.position = CGPoint(x: pipeNode.position.x  - backgroundVelocity, y: pipeNode.position.y)
+                
+                // Checks if bg node is completely scrolled off the screen, if yes, then puts it at the end of the other node.
+                if pipeNode.position.x <= 0 {
+                    pipeNode.shouldRemoveNode(playerX: self.player!.position.y)
+                }
+            }
+        })
     }
     
     func endGame() {

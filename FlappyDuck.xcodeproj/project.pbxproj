@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A224BAC1F952046007D7052 /* PipeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A224BAB1F952046007D7052 /* PipeNode.swift */; };
 		7A88881E1F93F1E7005D0D32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A88881D1F93F1E7005D0D32 /* AppDelegate.swift */; };
 		7A8888201F93F1E7005D0D32 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7A88881F1F93F1E7005D0D32 /* GameScene.sks */; };
 		7A8888221F93F1E7005D0D32 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7A8888211F93F1E7005D0D32 /* Actions.sks */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7A224BAB1F952046007D7052 /* PipeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeNode.swift; sourceTree = "<group>"; };
 		7A88881A1F93F1E7005D0D32 /* FlappyDuck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlappyDuck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A88881D1F93F1E7005D0D32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7A88881F1F93F1E7005D0D32 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -86,6 +88,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A224BAA1F95202B007D7052 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7A224BAB1F952046007D7052 /* PipeNode.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		7A8888111F93F1E7005D0D32 = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +119,7 @@
 		7A88881C1F93F1E7005D0D32 /* FlappyDuck */ = {
 			isa = PBXGroup;
 			children = (
+				7A224BAA1F95202B007D7052 /* Models */,
 				7AC462651F93FC5300EFAA14 /* Utils */,
 				7A88881D1F93F1E7005D0D32 /* AppDelegate.swift */,
 				7A88881F1F93F1E7005D0D32 /* GameScene.sks */,
@@ -290,6 +301,7 @@
 				7AC462641F93F70500EFAA14 /* GameElements.swift in Sources */,
 				7AC462691F93FD0700EFAA14 /* GenericNode.swift in Sources */,
 				7A8888241F93F1E7005D0D32 /* GameScene.swift in Sources */,
+				7A224BAC1F952046007D7052 /* PipeNode.swift in Sources */,
 				7A8888261F93F1E7005D0D32 /* GameViewController.swift in Sources */,
 				7A88881E1F93F1E7005D0D32 /* AppDelegate.swift in Sources */,
 				7AC462671F93FC7E00EFAA14 /* CollisionBitMask.swift in Sources */,
