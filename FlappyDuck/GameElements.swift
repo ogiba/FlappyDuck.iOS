@@ -65,7 +65,7 @@ extension GameScene {
         
         playerNode.physicsBody?.collisionBitMask = 0
         playerNode.physicsBody?.contactTestBitMask = CollisionBitMask.pipe
-        
+    
         return playerNode
     }
     

@@ -19,6 +19,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     fileprivate var player: SKNode?
     fileprivate var gameOver = false
     
+    fileprivate var pipesGenerated = false
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -48,14 +50,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             foreground?.addChild(_player)
         }
         
-        let pipeNode = createPipe(atPosition: CGPoint(x: self.size.width / 2, y: self.size.height - 125))
-        let pipeNode2 = createPipe(atPosition: CGPoint(x: self.size.width / 2, y: 40))
-        
-        foreground?.addChild(pipeNode)
-        foreground?.addChild(pipeNode2)
+//        let pipeNode = createPipe(atPosition: CGPoint(x: self.size.width, y: self.size.height - 125))
+//        let pipeNode2 = createPipe(atPosition: CGPoint(x: self.size.width, y: 40))
+//
+//        foreground?.addChild(pipeNode)
+//        foreground?.addChild(pipeNode2)
         
         physicsWorld.gravity = CGVector(dx: 0, dy: -2)
         physicsWorld.contactDelegate = self
+    }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        guard let _player = player else {
+            return
+        }
+        
+        var otherNode: SKNode?
+        
+        if contact.bodyA.node != _player {
+            otherNode = contact.bodyA.node
+        } else {
+            otherNode = contact.bodyB.node
+        }
+        
+        if let _collisioned = (otherNode as? PipeNode)?.collision(withPlayer: _player), _collisioned {
+            endGame()
+        }
     }
     
     override func didSimulatePhysics() {
@@ -96,6 +116,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             return
         }
         
+        generatePipes()
+        moveBackground()
+        movePipes()
+        
         if let _player = player {
             if _player.position.y > self.size.height {
                 endGame()
@@ -103,9 +127,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 endGame()
             }
         }
-        
-        moveBackground()
-        movePipes()
+    }
+    
+    func generatePipes() {
+        if !pipesGenerated {
+            pipesGenerated = true
+            let pipeNode = createPipe(atPosition: CGPoint(x: self.size.width, y: self.size.height - 125))
+            let pipeNode2 = createPipe(atPosition: CGPoint(x: self.size.width, y: 40))
+            
+            foreground?.addChild(pipeNode)
+            foreground?.addChild(pipeNode2)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
+                self.pipesGenerated = false
+            })
+        }
     }
     
     func moveBackground() {
@@ -114,21 +150,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if let cloudNode = node as? SKSpriteNode {
                 cloudNode.position = CGPoint(x: cloudNode.position.x  - backgroundVelocity, y: cloudNode.position.y)
                 
-                // Checks if bg node is completely scrolled off the screen, if yes, then puts it at the end of the other node.
-                if cloudNode.position.y <= -cloudNode.size.height {
-                    cloudNode.position = CGPoint(x: cloudNode.position.x + cloudNode.size.width * 2,y: cloudNode.position.y)
+                if cloudNode.position.x <= 0 {
+                    cloudNode.removeFromParent()
                 }
             }
         })
     }
     
     func movePipes() {
-        let backgroundVelocity : CGFloat = 10.0
+        let pipesVelocity : CGFloat = 10.0
         foreground?.enumerateChildNodes(withName: "pipeNode", using: { (node, stop) -> Void in
             if let pipeNode = node as? PipeNode {
-                pipeNode.position = CGPoint(x: pipeNode.position.x  - backgroundVelocity, y: pipeNode.position.y)
+                pipeNode.position = CGPoint(x: pipeNode.position.x  - pipesVelocity, y: pipeNode.position.y)
                 
-                // Checks if bg node is completely scrolled off the screen, if yes, then puts it at the end of the other node.
                 if pipeNode.position.x <= 0 {
                     pipeNode.shouldRemoveNode(playerX: self.player!.position.y)
                 }
