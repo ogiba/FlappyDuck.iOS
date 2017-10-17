@@ -132,11 +132,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func generatePipes() {
         if !pipesGenerated {
             pipesGenerated = true
-            let pipeNode = createPipe(atPosition: CGPoint(x: self.size.width, y: self.size.height - 125))
-            let pipeNode2 = createPipe(atPosition: CGPoint(x: self.size.width, y: 40))
-            
-            foreground?.addChild(pipeNode)
-            foreground?.addChild(pipeNode2)
+
+            let pipePair = createPipePair(atPosition: CGPoint(x: self.size.width, y: 40))
+            foreground?.addChild(pipePair)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
                 self.pipesGenerated = false
@@ -159,14 +157,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func movePipes() {
         let pipesVelocity : CGFloat = 10.0
-        foreground?.enumerateChildNodes(withName: "pipeNode", using: { (node, stop) -> Void in
-            if let pipeNode = node as? PipeNode {
-                pipeNode.position = CGPoint(x: pipeNode.position.x  - pipesVelocity, y: pipeNode.position.y)
-                
-                if pipeNode.position.x <= 0 {
-                    pipeNode.shouldRemoveNode(playerX: self.player!.position.y)
+        foreground?.enumerateChildNodes(withName: "pipePairNode", using: { (node, stop) -> Void in
+            let pipePiarNode = node
+            pipePiarNode.position = CGPoint(x: pipePiarNode.position.x  - pipesVelocity, y: pipePiarNode.position.y)
+            pipePiarNode.enumerateChildNodes(withName: "pipeNode", using: { (_node, stop) in
+                if let pipeNode = _node as? PipeNode {
+                    if pipePiarNode.position.x <= 0 {
+                        pipeNode.shouldRemoveNode(playerX: self.player!.position.y)
+                    }
                 }
-            }
+            })
         })
     }
     

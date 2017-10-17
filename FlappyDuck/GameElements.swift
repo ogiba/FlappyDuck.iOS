@@ -86,4 +86,17 @@ extension GameScene {
         
         return pipeNode
     }
+    
+    func createPipePair(atPosition position: CGPoint) -> SKNode {
+        let pairNode = SKNode()
+        pairNode.name = "pipePairNode"
+        
+        let pipeNode = createPipe(atPosition: CGPoint(x: self.size.width, y: self.size.height - 125))
+        let pipeNode2 = createPipe(atPosition: CGPoint(x: self.size.width, y: 40))
+        
+        pairNode.addChild(pipeNode)
+        pairNode.addChild(pipeNode2)
+        
+        return pairNode
+    }
 }
