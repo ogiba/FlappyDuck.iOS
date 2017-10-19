@@ -19,6 +19,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     fileprivate var player: SKNode?
     fileprivate var scoreLabel : SKLabelNode?
     fileprivate var highScoreLabel: SKLabelNode?
+    fileprivate var playButton: SKLabelNode?
     
     fileprivate var gameOver = false
     fileprivate var gameStarted = false
@@ -37,17 +38,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         backgroundColor = SKColor.blue
         
-        midground = createMidground()
-        
-        if let _midground = midground {
-            addChild(_midground)
-        }
-        
-        foreground = SKNode()
-        
-        if let _foreground = foreground {
-            addChild(_foreground)
-        }
+        setupEnviroment()
         
         hud = SKNode()
         addChild(hud!)
@@ -56,11 +47,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         hud?.addChild(highScoreLabel!)
         update(highscoreLabel: highScoreLabel, withScore: GameHandler.shared.highScore)
         
-        player = createPlayer()
-        
-        if let _player = player {
-            foreground?.addChild(_player)
-        }
+        playButton = setupStartButton()
+        hud?.addChild(playButton!)
         
         physicsWorld.gravity = CGVector(dx: 0, dy: -2)
         physicsWorld.contactDelegate = self
@@ -105,12 +93,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if gameOver {
+            resetState()
             return
         }
         
         if !gameStarted {
+            playButton?.removeFromParent()
             scoreLabel = setupScoreLabel()
             hud?.addChild(scoreLabel!)
+            
+            setupPlayer()
             
             gameStarted = true
         }
@@ -132,7 +124,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
-    
     override func update(_ currentTime: TimeInterval) {
         guard !gameOver && gameStarted else {
             return
@@ -148,6 +139,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             } else if _player.position.y < 0 {
                 endGame()
             }
+        }
+    }
+    
+    func setupPlayer() {
+        player = createPlayer()
+        
+        if let _player = player {
+            foreground?.addChild(_player)
+        }
+    }
+    
+    func setupEnviroment() {
+        midground = createMidground()
+        
+        if let _midground = midground {
+            addChild(_midground)
+        }
+        
+        foreground = SKNode()
+        
+        if let _foreground = foreground {
+            addChild(_foreground)
         }
     }
     
@@ -204,5 +217,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player?.physicsBody?.isDynamic = false
         
         GameHandler.shared.saveGameStats()
+        
+        update(startButton: playButton, withText: "Tap to ducking again")
+        hud?.addChild(playButton!)
+    }
+    
+    func resetState() {
+        midground?.removeFromParent()
+        foreground?.removeFromParent()
+        playButton?.removeFromParent()
+        
+        update(highscoreLabel: scoreLabel, withScore: 0)
+        
+        gameOver = false
+        
+        setupEnviroment()
+        setupPlayer()
+        
+        player?.physicsBody?.isDynamic = true
     }
 }

@@ -52,4 +52,20 @@ extension GameScene {
     func update(highscoreLabel: SKLabelNode?, withScore score: Int) {
         highscoreLabel?.text = String(format: highscoreText, "\(score)")
     }
+    
+    func setupStartButton() -> SKLabelNode {
+        let buttonNode = SKLabelNode(fontNamed: "AmericanTypewriter-Bold")
+        buttonNode.fontSize = 30
+        buttonNode.fontColor = SKColor.white
+        buttonNode.position = CGPoint(x: self.size.width / 2.0, y: self.size.height / 2.0)
+        buttonNode.horizontalAlignmentMode = .center
+        
+        buttonNode.text = "Start ducking"
+        
+        return buttonNode
+    }
+    
+    func update(startButton: SKLabelNode?, withText text: String) {
+        startButton?.text = text
+    }
 }
