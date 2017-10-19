@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7A224BAC1F952046007D7052 /* PipeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A224BAB1F952046007D7052 /* PipeNode.swift */; };
+		7A62F86E1F98C14600C1B7DF /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A62F86D1F98C14600C1B7DF /* Int+Extension.swift */; };
 		7A88881E1F93F1E7005D0D32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A88881D1F93F1E7005D0D32 /* AppDelegate.swift */; };
 		7A8888201F93F1E7005D0D32 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7A88881F1F93F1E7005D0D32 /* GameScene.sks */; };
 		7A8888221F93F1E7005D0D32 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7A8888211F93F1E7005D0D32 /* Actions.sks */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		7A224BAB1F952046007D7052 /* PipeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeNode.swift; sourceTree = "<group>"; };
+		7A62F86D1F98C14600C1B7DF /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		7A88881A1F93F1E7005D0D32 /* FlappyDuck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlappyDuck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A88881D1F93F1E7005D0D32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7A88881F1F93F1E7005D0D32 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -96,6 +98,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		7A62F86C1F98C13100C1B7DF /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7A62F86D1F98C14600C1B7DF /* Int+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		7A8888111F93F1E7005D0D32 = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +129,7 @@
 		7A88881C1F93F1E7005D0D32 /* FlappyDuck */ = {
 			isa = PBXGroup;
 			children = (
+				7A62F86C1F98C13100C1B7DF /* Extensions */,
 				7A224BAA1F95202B007D7052 /* Models */,
 				7AC462651F93FC5300EFAA14 /* Utils */,
 				7A88881D1F93F1E7005D0D32 /* AppDelegate.swift */,
@@ -299,6 +310,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AC462641F93F70500EFAA14 /* GameElements.swift in Sources */,
+				7A62F86E1F98C14600C1B7DF /* Int+Extension.swift in Sources */,
 				7AC462691F93FD0700EFAA14 /* GenericNode.swift in Sources */,
 				7A8888241F93F1E7005D0D32 /* GameScene.swift in Sources */,
 				7A224BAC1F952046007D7052 /* PipeNode.swift in Sources */,
