@@ -18,6 +18,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     fileprivate var foreground: SKNode?
     fileprivate var player: SKNode?
     fileprivate var gameOver = false
+    fileprivate var score: Int = 0
     
     fileprivate var pipesGenerated = false
     
@@ -50,12 +51,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             foreground?.addChild(_player)
         }
         
-//        let pipeNode = createPipe(atPosition: CGPoint(x: self.size.width, y: self.size.height - 125))
-//        let pipeNode2 = createPipe(atPosition: CGPoint(x: self.size.width, y: 40))
-//
-//        foreground?.addChild(pipeNode)
-//        foreground?.addChild(pipeNode2)
-        
         physicsWorld.gravity = CGVector(dx: 0, dy: -2)
         physicsWorld.contactDelegate = self
     }
@@ -75,6 +70,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if let _collisioned = (otherNode as? PipeNode)?.collision(withPlayer: _player), _collisioned {
             endGame()
+        } else if let _collisioned = (otherNode as? PipeCheckpointNode)?.collision(withPlayer: _player), _collisioned {
+            self.score += 1
+            
+            print("Current score: \(score)")
         }
     }
     

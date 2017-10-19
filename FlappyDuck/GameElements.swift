@@ -64,7 +64,7 @@ extension GameScene {
         playerNode.physicsBody?.categoryBitMask = CollisionBitMask.player
         
         playerNode.physicsBody?.collisionBitMask = 0
-        playerNode.physicsBody?.contactTestBitMask = CollisionBitMask.pipe
+        playerNode.physicsBody?.contactTestBitMask = CollisionBitMask.pipe | CollisionBitMask.pipeFreeSpae
     
         return playerNode
     }
@@ -88,8 +88,8 @@ extension GameScene {
         return pipeNode
     }
     
-    func createPipeFreeSpace(atPosition position: CGPoint, with size: CGSize) -> GenericNode {
-        let freeNode = GenericNode()
+    func createPipeFreeSpace(atPosition position: CGPoint, with size: CGSize) -> PipeCheckpointNode {
+        let freeNode = PipeCheckpointNode()
         freeNode.position = position
         freeNode.name = "pipeFreeSpace"
         
