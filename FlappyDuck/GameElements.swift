@@ -88,7 +88,7 @@ extension GameScene {
         return pipeNode
     }
     
-    func createFreePipeSpace(atPosition position: CGPoint, with size: CGSize) -> GenericNode {
+    func createPipeFreeSpace(atPosition position: CGPoint, with size: CGSize) -> GenericNode {
         let freeNode = GenericNode()
         freeNode.position = position
         freeNode.name = "pipeFreeSpace"
@@ -104,7 +104,7 @@ extension GameScene {
         return freeNode
     }
     
-    func createPipePair(atPosition position: CGPoint) -> SKNode {
+    func createObstacle(atPosition position: CGPoint) -> SKNode {
         let pairNode = SKNode()
         pairNode.name = "pipePairNode"
         pairNode.position = position
@@ -128,7 +128,7 @@ extension GameScene {
         let topPipeNode = createPipe(atPosition: CGPoint(x: 0, y: topPipeYPos),
                                   with: CGSize(width: pipeWidth, height: topNodeHeight))
         
-        let pipeSpaceNode = createFreePipeSpace(atPosition: CGPoint(x: 0, y: pipeFreeSpaceYPos),
+        let pipeSpaceNode = createPipeFreeSpace(atPosition: CGPoint(x: 0, y: pipeFreeSpaceYPos),
                                                 with: CGSize(width: pipeWidth, height: pipeFreeSpaceHeight))
         
         pairNode.addChild(bottomPipeNode)
