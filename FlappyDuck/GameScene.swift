@@ -10,14 +10,16 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    
     public var scaleFactor: CGFloat?
-    fileprivate var label : SKLabelNode?
+    
+    fileprivate var scoreLabel : SKLabelNode?
     fileprivate var backgroud: SKNode?
     fileprivate var midground: SKNode?
     fileprivate var foreground: SKNode?
+    fileprivate var hud: SKNode?
     fileprivate var player: SKNode?
     fileprivate var gameOver = false
+    fileprivate var gameStarted = false
     fileprivate var score: Int = 0
     
     fileprivate var pipesGenerated = false
@@ -44,6 +46,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if let _foreground = foreground {
             addChild(_foreground)
         }
+        
+        hud = SKNode()
+        addChild(hud!)
         
         player = createPlayer()
         
@@ -72,8 +77,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             endGame()
         } else if let _collisioned = (otherNode as? PipeCheckpointNode)?.collision(withPlayer: _player), _collisioned {
             self.score += 1
+            GameHandler.shared.score = score
             
-            print("Current score: \(score)")
+            update(scoreLabel: scoreLabel, withScore: score)
         }
     }
     
@@ -90,6 +96,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if gameOver {
             return
+        }
+        
+        if !gameStarted {
+            scoreLabel = setupScoreLabel()
+            hud?.addChild(scoreLabel!)
+            
+            gameStarted = true
         }
         
         player?.physicsBody?.isDynamic = true
@@ -111,7 +124,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     override func update(_ currentTime: TimeInterval) {
-        guard !gameOver && (player?.physicsBody?.isDynamic ?? true) else {
+        guard !gameOver && gameStarted else {
             return
         }
         
@@ -128,12 +141,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    //TODO: Check if this function is working properly
     func generatePipes() {
         if !pipesGenerated {
             pipesGenerated = true
 
             let pipePair = createObstacle(atPosition: CGPoint(x: self.size.width, y: 0))
-            foreground?.addChild(pipePair)
+            self.foreground?.addChild(pipePair)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
                 self.pipesGenerated = false
@@ -161,6 +175,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let pipePiarNode = node
             pipePiarNode.position = CGPoint(x: pipePiarNode.position.x  - pipesVelocity,
                                             y: pipePiarNode.position.y)
+            pipePiarNode.enumerateChildNodes(withName: "pipeNode", using: { (_node, _stop) in
+                if let _pipeNode = _node as? PipeNode {
+                    if pipePiarNode.position.x <= 0 {
+                        _pipeNode.removeFromParent()
+                    }
+                }
+            })
             
             if pipePiarNode.position.x <= 0 {
                 pipePiarNode.removeFromParent()
@@ -171,5 +192,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func endGame() {
         gameOver = true
         player?.physicsBody?.isDynamic = false
+        
+        GameHandler.shared.saveGameStats()
     }
 }
