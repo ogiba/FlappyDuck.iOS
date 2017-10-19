@@ -15,6 +15,12 @@ extension GameScene {
         }
     }
     
+    var highscoreText: String {
+        get {
+            return "Highscore: %@"
+        }
+    }
+    
     func setupScoreLabel() -> SKLabelNode {
         let scoreLabel = SKLabelNode(fontNamed: "AmericanTypewriter-Bold")
         scoreLabel.fontSize = 20
@@ -29,5 +35,21 @@ extension GameScene {
     
     func update(scoreLabel: SKLabelNode?, withScore score: Int) {
         scoreLabel?.text = String(format: scoreText, "\(score)")
+    }
+    
+    func setupHighscoreLabel() -> SKLabelNode {
+        let scoreLabel = SKLabelNode(fontNamed: "AmericanTypewriter-Bold")
+        scoreLabel.fontSize = 20
+        scoreLabel.fontColor = SKColor.white
+        scoreLabel.position = CGPoint(x: 20, y: self.size.height - 40)
+        scoreLabel.horizontalAlignmentMode = .left
+        
+        scoreLabel.text = String(format: highscoreText, "0")
+        
+        return scoreLabel
+    }
+    
+    func update(highscoreLabel: SKLabelNode?, withScore score: Int) {
+        highscoreLabel?.text = String(format: highscoreText, "\(score)")
     }
 }

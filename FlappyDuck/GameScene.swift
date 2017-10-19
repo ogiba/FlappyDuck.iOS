@@ -12,12 +12,14 @@ import GameplayKit
 class GameScene: SKScene, SKPhysicsContactDelegate {
     public var scaleFactor: CGFloat?
     
-    fileprivate var scoreLabel : SKLabelNode?
     fileprivate var backgroud: SKNode?
     fileprivate var midground: SKNode?
     fileprivate var foreground: SKNode?
     fileprivate var hud: SKNode?
     fileprivate var player: SKNode?
+    fileprivate var scoreLabel : SKLabelNode?
+    fileprivate var highScoreLabel: SKLabelNode?
+    
     fileprivate var gameOver = false
     fileprivate var gameStarted = false
     fileprivate var score: Int = 0
@@ -50,6 +52,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         hud = SKNode()
         addChild(hud!)
         
+        highScoreLabel = setupHighscoreLabel()
+        hud?.addChild(highScoreLabel!)
+        update(highscoreLabel: highScoreLabel, withScore: GameHandler.shared.highScore)
+        
         player = createPlayer()
         
         if let _player = player {
@@ -80,6 +86,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             GameHandler.shared.score = score
             
             update(scoreLabel: scoreLabel, withScore: score)
+            
+            if score > GameHandler.shared.highScore {
+                update(highscoreLabel: highScoreLabel, withScore: score)
+            }
         }
     }
     
@@ -149,7 +159,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let pipePair = createObstacle(atPosition: CGPoint(x: self.size.width, y: 0))
             self.foreground?.addChild(pipePair)
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 14, execute: {
                 self.pipesGenerated = false
             })
         }
