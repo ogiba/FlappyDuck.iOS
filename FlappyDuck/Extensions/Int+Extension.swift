@@ -10,6 +10,6 @@ import Foundation
 
 extension Int {
     func random(from min: Int) -> Int {
-        return Int(arc4random_uniform(UInt32(self)) + UInt32(min))
+        return Int(arc4random_uniform(UInt32(self - min)))
     }
 }

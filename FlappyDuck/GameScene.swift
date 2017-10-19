@@ -112,7 +112,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     override func update(_ currentTime: TimeInterval) {
-        if gameOver {
+        guard !gameOver && (player?.physicsBody?.isDynamic ?? true) else {
             return
         }
         
@@ -133,7 +133,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if !pipesGenerated {
             pipesGenerated = true
 
-            let pipePair = createPipePair(atPosition: CGPoint(x: self.size.width, y: 40))
+            let pipePair = createPipePair(atPosition: CGPoint(x: self.size.width, y: 0))
             foreground?.addChild(pipePair)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
@@ -146,7 +146,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let backgroundVelocity : CGFloat = 10.0
         midground?.enumerateChildNodes(withName: "cloud", using: { (node, stop) -> Void in
             if let cloudNode = node as? SKSpriteNode {
-                cloudNode.position = CGPoint(x: cloudNode.position.x  - backgroundVelocity, y: cloudNode.position.y)
+                cloudNode.position = CGPoint(x: cloudNode.position.x  - backgroundVelocity,
+                                             y: cloudNode.position.y)
                 
                 if cloudNode.position.x <= 0 {
                     cloudNode.removeFromParent()
@@ -159,14 +160,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let pipesVelocity : CGFloat = 10.0
         foreground?.enumerateChildNodes(withName: "pipePairNode", using: { (node, stop) -> Void in
             let pipePiarNode = node
-            pipePiarNode.position = CGPoint(x: pipePiarNode.position.x  - pipesVelocity, y: pipePiarNode.position.y)
-            pipePiarNode.enumerateChildNodes(withName: "pipeNode", using: { (_node, stop) in
-                if let pipeNode = _node as? PipeNode {
-                    if pipePiarNode.position.x <= 0 {
-                        pipeNode.shouldRemoveNode(playerX: self.player!.position.y)
-                    }
-                }
-            })
+            pipePiarNode.position = CGPoint(x: pipePiarNode.position.x  - pipesVelocity,
+                                            y: pipePiarNode.position.y)
+            
+            if pipePiarNode.position.x <= 0 {
+                pipePiarNode.removeFromParent()
+            }
         })
     }
     

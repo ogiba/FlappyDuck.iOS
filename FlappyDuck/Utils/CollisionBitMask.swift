@@ -11,4 +11,5 @@ import Foundation
 struct CollisionBitMask {
     static let player: UInt32 = 0x00
     static let pipe: UInt32 = 0x01
+    static let pipeFreeSpae: UInt32 = 0x02
 }

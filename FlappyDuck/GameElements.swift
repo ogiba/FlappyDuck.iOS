@@ -69,14 +69,15 @@ extension GameScene {
         return playerNode
     }
     
-    func createPipe(atPosition position: CGPoint) -> PipeNode {
+    func createPipe(atPosition position: CGPoint, with size: CGSize) -> PipeNode {
         let pipeNode = PipeNode()
         
-        let position = CGPoint(x: position.x, y: position.y * (scaleFactor ?? 1.0))
+        let position = CGPoint(x: position.x, y: position.y)
         pipeNode.position = position
         pipeNode.name = "pipeNode"
         
         let sprite = SKSpriteNode(imageNamed: "pipe")
+        sprite.size = size
         pipeNode.addChild(sprite)
         
         pipeNode.physicsBody = SKPhysicsBody(rectangleOf: sprite.size)
@@ -87,15 +88,52 @@ extension GameScene {
         return pipeNode
     }
     
+    func createFreePipeSpace(atPosition position: CGPoint, with size: CGSize) -> GenericNode {
+        let freeNode = GenericNode()
+        freeNode.position = position
+        freeNode.name = "pipeFreeSpace"
+        
+        let sprite = SKSpriteNode(color: UIColor(white: 0.0 , alpha: 1.0), size: size)
+        freeNode.addChild(sprite)
+        
+        freeNode.physicsBody = SKPhysicsBody(rectangleOf: sprite.size)
+        freeNode.physicsBody?.isDynamic = false
+        freeNode.physicsBody?.categoryBitMask = CollisionBitMask.pipeFreeSpae
+        freeNode.physicsBody?.collisionBitMask = 0
+        
+        return freeNode
+    }
+    
     func createPipePair(atPosition position: CGPoint) -> SKNode {
         let pairNode = SKNode()
         pairNode.name = "pipePairNode"
+        pairNode.position = position
         
-        let pipeNode = createPipe(atPosition: CGPoint(x: self.size.width, y: self.size.height - 125))
-        let pipeNode2 = createPipe(atPosition: CGPoint(x: self.size.width, y: 40))
+        let pipeFreeSpaceHeight: CGFloat = 100
+        let randomValue = Int(self.size.height).random(from: Int(pipeFreeSpaceHeight))
+        print("Random value: \(randomValue)")
         
-        pairNode.addChild(pipeNode)
-        pairNode.addChild(pipeNode2)
+        let pipeWidth: CGFloat = 50
+        
+        let floatedRandom = CGFloat(randomValue)
+        let bottomPipeYPos = floatedRandom / 2.0
+        let pipeFreeSpaceYPos = floatedRandom + (pipeFreeSpaceHeight / 2.0)
+        let topNodeHeight = self.size.height - (floatedRandom + pipeFreeSpaceHeight)
+        print("Top node height: \(topNodeHeight)")
+        let topPipeYPos = (floatedRandom + pipeFreeSpaceHeight) + topNodeHeight / 2.0
+        
+        let bottomPipeNode = createPipe(atPosition: CGPoint(x: 0, y: bottomPipeYPos),
+                                        with: CGSize(width: pipeWidth, height: floatedRandom))
+        
+        let topPipeNode = createPipe(atPosition: CGPoint(x: 0, y: topPipeYPos),
+                                  with: CGSize(width: pipeWidth, height: topNodeHeight))
+        
+        let pipeSpaceNode = createFreePipeSpace(atPosition: CGPoint(x: 0, y: pipeFreeSpaceYPos),
+                                                with: CGSize(width: pipeWidth, height: pipeFreeSpaceHeight))
+        
+        pairNode.addChild(bottomPipeNode)
+        pairNode.addChild(pipeSpaceNode)
+        pairNode.addChild(topPipeNode)
         
         return pairNode
     }
