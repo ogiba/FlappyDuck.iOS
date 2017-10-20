@@ -12,6 +12,7 @@
 		7A62F8721F98EA2C00C1B7DF /* PipeCheckpointNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A62F8711F98EA2C00C1B7DF /* PipeCheckpointNode.swift */; };
 		7A62F8741F993E1700C1B7DF /* GameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A62F8731F993E1700C1B7DF /* GameHandler.swift */; };
 		7A62F8761F99404600C1B7DF /* GameHud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A62F8751F99404600C1B7DF /* GameHud.swift */; };
+		7A62F8781F9AB97E00C1B7DF /* ObstacleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A62F8771F9AB97E00C1B7DF /* ObstacleNode.swift */; };
 		7A88881E1F93F1E7005D0D32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A88881D1F93F1E7005D0D32 /* AppDelegate.swift */; };
 		7A8888201F93F1E7005D0D32 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7A88881F1F93F1E7005D0D32 /* GameScene.sks */; };
 		7A8888221F93F1E7005D0D32 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7A8888211F93F1E7005D0D32 /* Actions.sks */; };
@@ -50,6 +51,7 @@
 		7A62F8711F98EA2C00C1B7DF /* PipeCheckpointNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipeCheckpointNode.swift; sourceTree = "<group>"; };
 		7A62F8731F993E1700C1B7DF /* GameHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHandler.swift; sourceTree = "<group>"; };
 		7A62F8751F99404600C1B7DF /* GameHud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHud.swift; sourceTree = "<group>"; };
+		7A62F8771F9AB97E00C1B7DF /* ObstacleNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObstacleNode.swift; sourceTree = "<group>"; };
 		7A88881A1F93F1E7005D0D32 /* FlappyDuck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlappyDuck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A88881D1F93F1E7005D0D32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7A88881F1F93F1E7005D0D32 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 			children = (
 				7A224BAB1F952046007D7052 /* PipeNode.swift */,
 				7A62F8711F98EA2C00C1B7DF /* PipeCheckpointNode.swift */,
+				7A62F8771F9AB97E00C1B7DF /* ObstacleNode.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				7A8888241F93F1E7005D0D32 /* GameScene.swift in Sources */,
 				7A224BAC1F952046007D7052 /* PipeNode.swift in Sources */,
 				7A8888261F93F1E7005D0D32 /* GameViewController.swift in Sources */,
+				7A62F8781F9AB97E00C1B7DF /* ObstacleNode.swift in Sources */,
 				7A88881E1F93F1E7005D0D32 /* AppDelegate.swift in Sources */,
 				7A62F8741F993E1700C1B7DF /* GameHandler.swift in Sources */,
 				7AC462671F93FC7E00EFAA14 /* CollisionBitMask.swift in Sources */,
