@@ -93,7 +93,7 @@ extension GameScene {
         freeNode.position = position
         freeNode.name = "pipeFreeSpace"
         
-        let sprite = SKSpriteNode(color: UIColor(white: 0.0 , alpha: 1.0), size: size)
+        let sprite = SKSpriteNode(color: UIColor.clear, size: size)
         freeNode.addChild(sprite)
         
         freeNode.physicsBody = SKPhysicsBody(rectangleOf: sprite.size)
@@ -128,8 +128,8 @@ extension GameScene {
         let topPipeNode = createPipe(atPosition: CGPoint(x: 0, y: topPipeYPos),
                                   with: CGSize(width: pipeWidth, height: topNodeHeight))
         
-        let pipeSpaceNode = createPipeFreeSpace(atPosition: CGPoint(x: 0, y: pipeFreeSpaceYPos),
-                                                with: CGSize(width: pipeWidth, height: pipeFreeSpaceHeight))
+        let pipeSpaceNode = createPipeFreeSpace(atPosition: CGPoint(x: pipeWidth / 2.0, y: pipeFreeSpaceYPos),
+                                                with: CGSize(width: 10, height: pipeFreeSpaceHeight))
         
         pairNode.addChild(bottomPipeNode)
         pairNode.addChild(pipeSpaceNode)

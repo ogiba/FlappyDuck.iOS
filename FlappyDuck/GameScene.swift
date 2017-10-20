@@ -172,7 +172,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let pipePair = createObstacle(atPosition: CGPoint(x: self.size.width, y: 0))
             self.foreground?.addChild(pipePair)
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 14, execute: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
                 self.pipesGenerated = false
             })
         }
