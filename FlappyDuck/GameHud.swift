@@ -68,4 +68,32 @@ extension GameScene {
     func update(startButton: SKLabelNode?, withText text: String) {
         startButton?.text = text
     }
+    
+    func setupPreparingLabel() -> SKLabelNode {
+        let preparingInfoNode = SKLabelNode(fontNamed: "AmericanTypewriter-Bold")
+        preparingInfoNode.fontSize = 30
+        preparingInfoNode.fontColor = SKColor.white
+        preparingInfoNode.position = CGPoint(x: self.size.width / 2.0, y: self.size.height / 2.0)
+        preparingInfoNode.horizontalAlignmentMode = .center
+        
+        preparingInfoNode.text = "Game will start in"
+        
+        return preparingInfoNode
+    }
+    
+    func setupCounerLabel() -> SKLabelNode {
+        let counterNode = SKLabelNode(fontNamed: "AmericanTypewriter-Bold")
+        counterNode.fontSize = 30
+        counterNode.fontColor = SKColor.white
+        counterNode.position = CGPoint(x: self.size.width / 2.0, y: self.size.height / 2.0 - 50)
+        counterNode.horizontalAlignmentMode = .center
+        
+        counterNode.text = ""
+        
+        return counterNode
+    }
+    
+    func update(counterLabel: SKLabelNode?, with value: Int) {
+        counterLabel?.text = "\(value)"
+    }
 }

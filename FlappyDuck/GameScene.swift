@@ -21,11 +21,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     fileprivate var highScoreLabel: SKLabelNode?
     fileprivate var playButton: SKLabelNode?
     
+    fileprivate var preparingLabel: SKLabelNode?
+    fileprivate var counterLabel: SKLabelNode?
+    
     fileprivate var gameOver = false
     fileprivate var gameStarted = false
     fileprivate var score: Int = 0
     
     fileprivate var pipesGenerated = false
+    fileprivate var timerIsRunning = false
+    fileprivate var timeRemaining = 3
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -88,7 +93,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func didMove(to view: SKView) {
-    
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -97,17 +102,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             return
         }
         
-        if !gameStarted {
-            playButton?.removeFromParent()
-            scoreLabel = setupScoreLabel()
-            hud?.addChild(scoreLabel!)
-            
-            setupPlayer()
-            
-            gameStarted = true
+        if !gameStarted && !timerIsRunning{
+            startGame()
         }
         
-        player?.physicsBody?.isDynamic = true
         player?.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 5))
         
     }
@@ -168,7 +166,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func generatePipes() {
         if !pipesGenerated {
             pipesGenerated = true
-
+            
             let pipePair = createObstacle(atPosition: CGPoint(x: self.size.width, y: 0))
             self.foreground?.addChild(pipePair)
             
@@ -211,9 +209,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         })
     }
+}
+
+//MARK: Game behaviors
+extension GameScene {
+    func startGame() {
+        playButton?.removeFromParent()
+        scoreLabel = setupScoreLabel()
+        hud?.addChild(scoreLabel!)
+        
+        setupPlayer()
+        
+        preparePlayerToPlay()
+        
+        runTimer()
+    }
     
     func endGame() {
         gameOver = true
+        gameStarted = false
         player?.physicsBody?.isDynamic = false
         
         GameHandler.shared.saveGameStats()
@@ -229,11 +243,49 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         update(highscoreLabel: scoreLabel, withScore: 0)
         
+        timeRemaining = 3
         gameOver = false
         
         setupEnviroment()
         setupPlayer()
         
-        player?.physicsBody?.isDynamic = true
+        preparePlayerToPlay()
+        
+        runTimer()
+    }
+    
+    func preparePlayerToPlay() {
+        preparingLabel = setupPreparingLabel()
+        hud?.addChild(preparingLabel!)
+        
+        counterLabel = setupCounerLabel()
+        hud?.addChild(counterLabel!)
+        
+        update(counterLabel: counterLabel, with: 3)
+    }
+    
+    func runTimer() {
+        let _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerRunning(_:)), userInfo: nil, repeats: true)
+        
+        timerIsRunning = true
+    }
+    
+    @objc func timerRunning(_ timer: Timer) {
+        timeRemaining -= 1
+        
+        update(counterLabel: counterLabel, with: timeRemaining)
+        
+        print("Remaining time: \(timeRemaining)")
+        
+        if timeRemaining == 0 {
+            timer.invalidate()
+            
+            self.preparingLabel?.removeFromParent()
+            self.counterLabel?.removeFromParent()
+            
+            timerIsRunning = false
+            gameStarted = true
+            player?.physicsBody?.isDynamic = true
+        }
     }
 }
