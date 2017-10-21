@@ -46,6 +46,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupEnviroment()
         
         hud = SKNode()
+        hud?.zPosition = 100
         addChild(hud!)
         
         highScoreLabel = setupHighscoreLabel()
