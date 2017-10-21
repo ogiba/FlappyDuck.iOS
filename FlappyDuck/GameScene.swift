@@ -106,7 +106,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             startGame()
         }
         
-        player?.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 5))
+        player?.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 4))
         
     }
     
@@ -127,7 +127,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             return
         }
         
-        generatePipes()
+//        generatePipes()
         moveBackground()
         movePipes()
         
@@ -160,6 +160,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if let _foreground = foreground {
             addChild(_foreground)
         }
+        
+        generatePipesTest()
     }
     
     //TODO: Check if this function is working properly
@@ -176,8 +178,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func generatePipesTest() {
+        let freeSpace: CGFloat = self.size.width / 3
+        
+        var startXPos = self.size.width
+        
+        for _ in 0...2 {
+           let obstacle = self.createObstacle(atPosition: CGPoint(x: startXPos, y: 0))
+            self.foreground?.addChild(obstacle)
+            startXPos += freeSpace
+        }
+    }
+    
     func moveBackground() {
-        let backgroundVelocity : CGFloat = 10.0
+        let backgroundVelocity : CGFloat = 8.0
         midground?.enumerateChildNodes(withName: "cloud", using: { (node, stop) -> Void in
             if let cloudNode = node as? SKSpriteNode {
                 cloudNode.position = CGPoint(x: cloudNode.position.x  - backgroundVelocity,
@@ -191,21 +205,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func movePipes() {
-        let pipesVelocity : CGFloat = 10.0
+        let pipesVelocity : CGFloat = 6.0
         foreground?.enumerateChildNodes(withName: "pipePairNode", using: { (node, stop) -> Void in
-            let pipePiarNode = node
-            pipePiarNode.position = CGPoint(x: pipePiarNode.position.x  - pipesVelocity,
-                                            y: pipePiarNode.position.y)
-            pipePiarNode.enumerateChildNodes(withName: "pipeNode", using: { (_node, _stop) in
-                if let _pipeNode = _node as? PipeNode {
-                    if pipePiarNode.position.x <= 0 {
-                        _pipeNode.removeFromParent()
+            if let obstacleNode = node as? ObstacleNode {
+                obstacleNode.position = CGPoint(x: obstacleNode.position.x  - pipesVelocity,
+                                                y: obstacleNode.position.y)
+                obstacleNode.enumerateChildNodes(withName: "pipeNode", using: { (_node, _stop) in
+                    if let _pipeNode = _node as? PipeNode {
+                        if obstacleNode.position.x <= 0 {
+                            _pipeNode.removeFromParent()
+                        }
                     }
+                })
+                
+                if obstacleNode.position.x <= 0 {
+                    //                obstacleNode.removeFromParent()
+                    obstacleNode.refreshItem()
                 }
-            })
-            
-            if pipePiarNode.position.x <= 0 {
-                pipePiarNode.removeFromParent()
             }
         })
     }

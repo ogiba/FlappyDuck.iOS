@@ -47,7 +47,7 @@ extension GameScene {
         playerNode.position = CGPoint(x: 100, y: self.size.height / 2.0)
         
         let sprite = SKSpriteNode(imageNamed: "player")
-        sprite.size = CGSize(width: sprite.size.width / 8, height: sprite.size.height / 8)
+        sprite.size = CGSize(width: sprite.size.width / 10, height: sprite.size.height / 10)
         playerNode.addChild(sprite)
         
         playerNode.physicsBody = SKPhysicsBody(circleOfRadius: sprite.size.width / 2.0)
@@ -69,13 +69,10 @@ extension GameScene {
         return playerNode
     }
     
-    func createObstacle(atPosition position: CGPoint) -> SKNode {
-        let pairNode = ObstacleNode()
-        pairNode.size = self.size
+    func createObstacle(atPosition position: CGPoint) -> ObstacleNode {
+        let pairNode = ObstacleNode(size: self.size)
         pairNode.name = "pipePairNode"
-        pairNode.position = position
-        
-        pairNode.generateItems()
+        pairNode.basePosition = position
         
         return pairNode
     }

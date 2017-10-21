@@ -10,6 +10,23 @@ import SpriteKit
 
 class ObstacleNode: GenericNode {
     var size: CGSize = CGSize.zero
+    var basePosition: CGPoint = CGPoint.zero {
+        didSet {
+            self.position = basePosition
+        }
+    }
+    
+    init(size: CGSize) {
+        super.init()
+        
+        self.size = size
+        
+        generateItems()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
     
     func generateItems() {
         let pipeFreeSpaceHeight: CGFloat = 100
@@ -41,6 +58,7 @@ class ObstacleNode: GenericNode {
     
     func refreshItem() {
         self.removeAllChildren()
+        self.position = basePosition
         
         generateItems()
     }
